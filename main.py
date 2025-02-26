@@ -8,7 +8,6 @@ from cleaner import clean_csv
 from combiner import combine_files
 import pandas as pd
 import numpy as np
-import os
 from io import StringIO, BytesIO
 from collections import OrderedDict
 
@@ -70,5 +69,4 @@ def upload_csv():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))  # Using Render's assigned PORT
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=10000)
