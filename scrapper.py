@@ -8,6 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 options = Options()
+options.add_argument("--headless")
 options.add_argument("--headless=new")
 options.add_argument("--disable-gpu") 
 options.add_argument("--window-size=1920,1080")
@@ -25,9 +26,9 @@ def start_driver():
     try:
         global driver, wait
         driver = webdriver.Chrome(options=options)
-        wait = WebDriverWait(driver, 10)
+        wait = WebDriverWait(driver, 20)
     except Exception as e:
-        print("Error is: "+e)
+        print(f"Error initializing WebDriver: {e}")
 
 
 def open_chrome(hacker_rank_url):
