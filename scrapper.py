@@ -19,6 +19,7 @@ options.add_argument("--headless=new")  # Enable headless mode
 options.add_argument("--disable-gpu")
 options.add_argument("--window-size=1920,1080")
 options.add_argument("--no-sandbox")  # Required for Docker
+driver_key = "87d8ab981b14a7c6daba6c2e3013971b442b35f218546d0c58764fdb9cf8eba3"
 options.add_argument("--disable-dev-shm-usage")  # Prevents memory issues
 
 driver = None
