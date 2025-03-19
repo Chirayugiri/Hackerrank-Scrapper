@@ -1,3 +1,4 @@
+import os
 import csv
 import time
 import hashlib
@@ -7,32 +8,28 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import os
 
-# Automatically install and get the path of ChromeDriver
-chrome_driver_path = chromedriver_autoinstaller.install()
+# Auto-install the correct ChromeDriver version
+chromedriver_autoinstaller.install()
 
+# Set up Chrome options for Docker
 options = Options()
-options.add_argument("--headless=new")
+options.binary_location = "/usr/bin/google-chrome"  # Path for Linux inside Docker
+options.add_argument("--headless=new")  # Enable headless mode
 options.add_argument("--disable-gpu")
 options.add_argument("--window-size=1920,1080")
-options.add_argument("--no-sandbox")  # Prevents permission issues
+options.add_argument("--no-sandbox")  # Required for Docker
 options.add_argument("--disable-dev-shm-usage")  # Prevents memory issues
-
-driver_key = "87d8ab981b14a7c6daba6c2e3013971b442b35f218546d0c58764fdb9cf8eba3"
-user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36"
-options.add_argument(f"user-agent={user_agent}")
 
 driver = None
 wait = None
 leaderboard_data = []
 
-
 def start_driver():
     """Initialize WebDriver"""
+    global driver, wait
     try:
-        global driver, wait
-        driver = webdriver.Chrome(executable_path=chrome_driver_path, options=options)
+        driver = webdriver.Chrome(options=options)
         wait = WebDriverWait(driver, 20)
     except Exception as e:
         print(f"Error initializing WebDriver: {e}")
@@ -45,7 +42,7 @@ def open_chrome(hacker_rank_url):
             start_driver()
         driver.get(hacker_rank_url)
     except Exception as e:
-        print("Error:", str(e))  # Fixed exception handling
+        print("Error: "+e)
 
 
 def change_view_per_page():
@@ -86,7 +83,6 @@ def extract_data():
 def sleep():
     time.sleep(3)
 
-
 def save_data():
     """Save leaderboard data to CSV"""
     csv_filename = "./temp_files/hackerrank_leaderboard.csv"
@@ -124,3 +120,4 @@ def close_driver():
     if driver:
         driver.quit()
         driver = None
+
