@@ -1,10 +1,11 @@
 Flask==2.2.5
 Flask-Cors==3.0.10
-chromedriver-autoinstaller
+chromedriver-autoinstaller==0.6.2
 gunicorn==21.2.0
 numpy>=1.21.0,<2.0
-pandas==3.11
+pandas==2.2.1
 openpyxl==3.1.2
 selenium==4.15.2
-requests
-beautifulsoup4
+requests==2.31.0
+beautifulsoup4==4.12.3
+python-dotenv==1.0.1
